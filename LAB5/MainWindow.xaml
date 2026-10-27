@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,10">
             <TextBlock Text="Додати студента" FontWeight="Bold"/>
@@ -32,7 +33,7 @@
                 <TextBox x:Name="BirthYearTextBox" Grid.Row="0" Grid.Column="3" Margin="5" Padding="2"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Школа:" VerticalAlignment="Center" Margin="5"/>
                 <TextBox x:Name="SchoolTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Padding="2"/>
-                
+
             </Grid>
             <Button x:Name="AddButton" Content="Додати студента" Margin="5" Click="AddButton_Click"/>
         </StackPanel>
@@ -53,6 +54,15 @@
             <Button x:Name="SortByBirthYearButton" Content="Сортувати за роком" Margin="5" Click="SortByBirthYearButton_Click"/>
             <Button x:Name="LoadButton" Content="Завантажити" Margin="5" Click="LoadButton_Click"/>
             <Button x:Name="SaveButton" Content="Зберегти" Margin="5" Click="SaveButton_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+            <TextBlock Text="Пошук:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="SearchTextBox" Width="200" Margin="5" Padding="2"/>
+            <Button x:Name="SearchButton" Content="Пошук" Margin="5" Click="SearchButton_Click"/>
+            <Button x:Name="UniqueSchoolsButton" Content="Унікальні школи" Margin="5" Click="UniqueSchoolsButton_Click"/>
+            <Button x:Name="ThreeOldestButton" Content="3 найстарші" Margin="5" Click="ThreeOldestButton_Click"/>
+            <Button x:Name="AverageBirthYearButton" Content="Середній рік" Margin="5" Click="AverageBirthYearButton_Click"/>
+            <Button x:Name="GroupBySchoolButton" Content="Групування за школою" Margin="5" Click="GroupBySchoolButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -68,6 +68,32 @@ namespace LAB5
             _catalog.FilterBySchool(FilterSchoolTextBox.Text);
         }
 
+        private void SearchButton_Click( object sender, RoutedEventArgs e)
+        {
+            _catalog.SearchStudent(SearchTextBox.Text);
+        }
+
+        private void UniqueSchoolsButton_Click(object sender, RoutedEventArgs e)
+        {
+            _catalog.ShowUniqueSchools();
+        }
+
+        private void ThreeOldestButton_Click(object sender, RoutedEventArgs e)
+        {
+            _catalog.FindThreeOldestStudents();
+        }
+
+        private void AverageBirthYearButton_Click(object sender, RoutedEventArgs e)
+        {
+            double average = _catalog.CalculateAverageBirthYear();
+            MessageBox.Show($"Середній рік народження = {average}","Розрахунки", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void GroupBySchoolButton_Click(object sender, RoutedEventArgs e)
+        {
+            _catalog.GroupStudentsBySchool();
+        }
+
         private void ResetFilterButton_Click(object sender, RoutedEventArgs e)
         {
             FilterSchoolTextBox.Clear();

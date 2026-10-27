@@ -40,8 +40,13 @@ namespace LAB5
 
         public void SortByBirthYear()
         {
-            var sortedStudents = new List<Student>(Students);
-            sortedStudents.Sort(new StudentBirthYearComparer());
+            //var sortedStudents = new List<Student>(Students);
+            //sortedStudents.Sort(new StudentBirthYearComparer());
+            //UpdateVisibleCollection(sortedStudents);
+
+            var sortedStudents = Students
+            .OrderBy(s => s.BirthYear)
+            .ToList();
             UpdateVisibleCollection(sortedStudents);
         }
 
@@ -52,15 +57,77 @@ namespace LAB5
                 ResetFilter(); return;
             }
 
-            var filtered = new List<Student>();
+            /*var filtered = new List<Student>();
             for(int i=0;i<_allStudents.Count;i++)
             {
                 if (string.Equals(_allStudents[i].NameOfSchool,school.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
                     filtered.Add(_allStudents[i]);
                 }
-            }
+            }*/
+            string trimmedSchool = school.Trim();
+            var filtered = _allStudents
+                .Where(s => string.Equals(s.NameOfSchool, trimmedSchool, StringComparison.OrdinalIgnoreCase))
+                .ToList();
             UpdateVisibleCollection(filtered);
+        }
+
+        public void SearchStudent (string searchTerm)
+        {
+            if(string.IsNullOrWhiteSpace(searchTerm))
+            {
+                ResetFilter(); return;
+            }
+
+            string lowerTerm = searchTerm.Trim().ToLowerInvariant();
+            var searchResult = _allStudents
+                .Where(s => s.FullName.ToLowerInvariant().Contains(lowerTerm) || s.NameOfSchool.ToLowerInvariant().Contains(lowerTerm))
+                .ToList();
+            UpdateVisibleCollection(searchResult);
+        }
+
+        //проєкція Select
+        public void ShowUniqueSchools()
+        {
+            var uniqueSchools = _allStudents
+                .Select(s => s.NameOfSchool) //проєкція (список рядків)
+                .Distinct()
+                .OrderBy(n => n) //лямбда n => n сортуй самі рядки
+                .ToList();
+            var schoolStudents = uniqueSchools
+                .Select( n => new Student("Школа", 2000, n))
+                .ToList();
+            UpdateVisibleCollection(schoolStudents);
+        }
+
+        public void FindThreeOldestStudents()
+        {
+            var oldestStudents = _allStudents
+                .OrderBy(s => s.BirthYear)
+                .Take(3)
+                .ToList();
+            UpdateVisibleCollection(oldestStudents);
+        }
+
+        //агрегація Average
+        public double CalculateAverageBirthYear()
+        {
+            if(_allStudents.Count == 0)
+            {
+                return 0;
+            }
+            return _allStudents.Average(s => s.BirthYear);
+        }
+
+        //групування GroupBy
+        public void GroupStudentsBySchool()
+        {
+            var groupedStudents = _allStudents
+                .GroupBy(s => s.NameOfSchool)
+                .OrderBy(g => g.Key) //сортування груп за алфавітом
+                .SelectMany(g => g) //розгортання груп в список студентів
+                .ToList();
+            UpdateVisibleCollection(groupedStudents);
         }
 
         public void ResetFilter()

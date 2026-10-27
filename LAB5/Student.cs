@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Скласти список студентів групи, включивши такі дані: ПІБ, рік народження, яку школу закінчив.Вивести в новий список інформацію про
+//студентів, які закінчили задану школу, відсортувавши їх за роком народження.
+
 namespace LAB5
 {
     public class Student : IComparable<Student>
@@ -55,6 +58,7 @@ namespace LAB5
                 _nameOfSchool = value;
             }
         }
+
 
         public Student(string fullName, int birthYear, string nameOfSchool)
         {
